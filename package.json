@@ -1,0 +1,26 @@
+{
+  "name": "vot",
+  "version": "0.0.1",
+  "description": "A discord bot based on Discord.js framework",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha 'src/**/*.spec.js'",
+    "start": "nodemon main.js",
+    "start-nodemon": "node node_modules/nodemon/bin/nodemon.js main.js"
+  },
+  "author": "Sergi B",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.1",
+    "discord.js": "^11.3.0",
+    "eslint": "^4.18.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "nodemon": "^1.15.1",
+    "require-directory": "^2.1.1",
+    "winston": "^3.0.0-rc1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1"
+  }
+}
