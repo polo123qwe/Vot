@@ -2,6 +2,7 @@ const {expect} = require('chai');
 const Command = require('./Command');
 const LEVELS = require('./Permission').LEVELS;
 const {Message} = require('discord.js');
+const {ERRORS} = require('../utils/constants');
 
 const logger = require('../utils/logger');
 
@@ -20,27 +21,27 @@ describe('Create a command with a command name', () => {
         });
     });
 
-    it('Run function should have 2 objects as parameters', () => {
+    it('Exec function should have 2 objects as parameters', () => {
         let cmd = new Command();
 
         let messageObj = new Message();
 
-        let result = cmd.run(messageObj, []);
+        let result = cmd.exec(messageObj, []);
         expect(result).to.be.undefined;
     });
 
-    it('run should throw an error if first parameter is not an object', () => {
+    it('exec should throw an error if first parameter is not an object', () => {
         let cmd = new Command();
 
-        expect(() => cmd.run({}, [])).to.throw('Incorect message object!');
+        expect(() => cmd.exec({}, [])).to.throw(ERRORS.INCORRECT_MESSAGE_OBJECT);
     });
 
-    it('run should throw an error if second parameter is not an array', () => {
+    it('exec should throw an error if second parameter is not an array', () => {
         let cmd = new Command();
 
         let messageObj = new Message();
 
-        expect(() => cmd.run(messageObj, '')).to.throw('args is not an array!');
+        expect(() => cmd.exec(messageObj, '')).to.throw(ERRORS.NOT_ARRAY);
     });
 
     it('Should create a command with default values and isTest as true', () => {

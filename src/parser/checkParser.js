@@ -1,13 +1,9 @@
-const ARG_TYPES = {
-    'STRING': 1,
-    'NUMBER': 2,
-};
-exports.ARG_TYPES = ARG_TYPES;
+const {ARG_TYPES} = require('../utils/constants');
 
 function arg_types_test(arg, type) {
     switch(type){
         case ARG_TYPES.STRING: return typeof arg === 'string' || typeof arg === 'number';
-        case ARG_TYPES.NUMBER: return !isNaN(arg);
+        case ARG_TYPES.NUMBER: return typeof arg === 'number' || !isNaN(arg);
     }
 }
 

@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
-const {ARG_TYPES, checkTypes} = require('./checkParser');
+const {checkTypes} = require('./checkParser');
+const {ARG_TYPES} = require('../utils/constants');
 
 describe('Check arg types', () => {
     it('Correctly detects a string', () => {

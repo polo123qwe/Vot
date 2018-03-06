@@ -23,7 +23,9 @@
         ],
         "promise/catch-or-return": "error",
         "promise/always-return": "warn",
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-unused-vars": "warn",
+        "no-console": "warn"
     },
 		"plugins": [
         "promise"

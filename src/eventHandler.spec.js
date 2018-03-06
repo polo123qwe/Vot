@@ -2,6 +2,8 @@ const expect = require('chai').expect;
 
 const prefix = require('../config.json').prefix;
 const {messageHandler} = require('./eventHandler');
+const {Message} = require('discord.js');
+const {ERRORS} = require('./utils/constants');
 
 describe('messageHandler', () => {
     it('returns null if it can not parse the message', () => {
@@ -11,9 +13,10 @@ describe('messageHandler', () => {
     });
 
     it('finds and runs the test command', () => {
-        let result = messageHandler({
-            content: prefix + 'test'
-        });
+        let messageObj = new Message();
+        messageObj.content = prefix + 'test';
+
+        let result = messageHandler(messageObj);
 
         expect(result).to.be.null;
     });
@@ -21,6 +24,6 @@ describe('messageHandler', () => {
     it('throws exception if command is not found', () => {
         expect(() => messageHandler({
             content: prefix + '1234567890'
-        })).to.throw('Command not found!');
+        })).to.throw(ERRORS.COMMAND_NOT_FOUND);
     });
 });
