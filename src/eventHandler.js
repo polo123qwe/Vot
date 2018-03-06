@@ -14,5 +14,8 @@ exports.messageHandler = function (msg) {
     if(command){
         // logger.info('Command found!' + JSON.stringify(command, null, 2));
         command.run(msg);
+        return null;
+    } else {
+        throw new Error('Command not found!');
     }
 };

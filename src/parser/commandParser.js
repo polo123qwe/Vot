@@ -5,8 +5,8 @@ const prefix = require('../../config.json').prefix;
  * @param {Discord.Message} msg - The message object recieved
  * @return {Object|null} The object with content, commandName and args.
  */
-function commandParser(msg) {
-    if(!hasPrefix(msg.content)){
+function commandParser(msg = {}) {
+    if(!msg || !hasPrefix(msg.content)){
         return null;        
     }
 
@@ -22,7 +22,7 @@ function commandParser(msg) {
 }
 
 function hasPrefix(messageString){
-    return messageString.startsWith(prefix);
+    return !!messageString && messageString.startsWith(prefix);
 }
 
 module.exports = commandParser;
