@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+
 const LEVELS = require('./classes/Permission').LEVELS;
 const {findCommand} = require('./commandAggregator');
 

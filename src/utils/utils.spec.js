@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+
 const {stringifyTimestamp} = require('./utils');
 
 describe('StringyfyTimestamp', () => {

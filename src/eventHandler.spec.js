@@ -1,9 +1,9 @@
 const expect = require('chai').expect;
 
 const prefix = require('../config.json').prefix;
-const {messageHandler} = require('./eventHandler');
-const {Message} = require('discord.js');
 const {ERRORS} = require('./utils/constants');
+const {Message} = require('discord.js');
+const {messageHandler} = require('./eventHandler');
 
 describe('messageHandler', () => {
     it('returns null if it can not parse the message', () => {

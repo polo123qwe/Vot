@@ -1,9 +1,9 @@
+const {Message} = require('discord.js');
 const logger = require('../utils/logger');
 
 const LEVELS = require('./Permission').LEVELS;
-const {Message} = require('discord.js');
-const {checkTypes} = require('../parser/checkParser');
 const {ERRORS} = require('../utils/constants');
+const {checkTypes} = require('../parser/checkParser');
 
 class Command {
     // Set all the initial values for a command

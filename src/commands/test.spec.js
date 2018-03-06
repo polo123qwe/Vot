@@ -1,8 +1,9 @@
 const expect = require('chai').expect;
-const {test} = require('./test');
-const {ERRORS} = require('../utils/constants');
-
 const {Message} = require('discord.js');
+
+const {ERRORS} = require('../utils/constants');
+const {test} = require('./test');
+
 
 describe('Testing commands', () => {
     describe('Test command', () => {
@@ -14,6 +15,7 @@ describe('Testing commands', () => {
             expect(cmd.isTest).to.be.true;
         });
     });
+
     describe('TestWithArgTypes command', () => {
         it('Should correctly check types', () => {
             let cmd = test;

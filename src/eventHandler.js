@@ -1,8 +1,9 @@
 const logger = require('./utils/logger');
-const commandParser = require('./parser/commandParser');
 
 const {ERRORS} = require('./utils/constants');
+const commandParser = require('./parser/commandParser');
 const { findCommand } = require('./commandAggregator');
+
 
 exports.messageHandler = function (msg) {
     let parsed = commandParser(msg);

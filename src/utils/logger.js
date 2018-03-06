@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-
 const { createLogger, format, transports } = require('winston');
+
 const { combine, timestamp, printf } = format;
 const { stringifyTimestamp } = require('./utils');
 

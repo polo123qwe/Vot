@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+
 const {checkTypes} = require('./checkParser');
 const {ARG_TYPES} = require('../utils/constants');
 

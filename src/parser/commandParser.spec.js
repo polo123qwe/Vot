@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
-const commandParser = require('./commandParser');
+
 const prefix = require('../../config.json').prefix;
+const commandParser = require('./commandParser');
 
 describe('CommandParser', () => {
     it('Returns null if no parameter is sent', () => {

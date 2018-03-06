@@ -1,10 +1,11 @@
 const {expect} = require('chai');
-const Command = require('./Command');
-const LEVELS = require('./Permission').LEVELS;
 const {Message} = require('discord.js');
-const {ERRORS} = require('../utils/constants');
-
 const logger = require('../utils/logger');
+
+const {ERRORS} = require('../utils/constants');
+const LEVELS = require('./Permission').LEVELS;
+const Command = require('./Command');
+
 
 describe('Create a command with a command name', () => {
     it('Should create a command with default values', () => {

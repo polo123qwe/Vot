@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+
 const {isUser} = require('./discordUtils');
 
 describe('Check isUser method', () => {
