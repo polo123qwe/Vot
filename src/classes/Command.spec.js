@@ -1,15 +1,26 @@
-/*const expect = require('chai').expect;
+const expect = require('chai').expect;
 const Command = require('./Command');
+const LEVELS = require('./Permission').LEVELS;
+const {Logger} = require('winston');
 
 describe('Create a command with a command name', () => {
-    it('Should create a command with given name', () => {
+    it('Should create a command with default values', () => {
         let cmd = new Command();
 
-        expect(cmd.name).to.be.equal('name');
+        expect(cmd).to.have.all.keys({
+            alias: [],
+            argTypes: [],
+            category: 'General',
+            dmOnly: false,
+            reqDB: false,
+            minLevel: LEVELS.ALL
+        });
     });
-    it('Should NOT create a command if parameter is not a string', () => {
+
+    it('Should have an empty run function that prints an errror', () => {
         let cmd = new Command();
 
-        expect(cmd.name).not.to.be.string;
+        let result = cmd.run();
+        expect(result).to.be.undefined;
     });
-});*/
+});

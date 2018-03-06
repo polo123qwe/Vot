@@ -10,9 +10,19 @@ class Command {
         this.reqDB = false;
         this.dmOnly = false;
         this.alias = [];
+
+        //Input checking
+        this.argTypes = [];
     }
-    run() {
-        return logger.error('Not implemented!');
+    run( /*msg, args*/ ) {
+        logger.error('Not implemented!');
+        return;
+    }
+
+    exec() {
+        /*if(){
+            this.run();
+        }*/
     }
     
 }

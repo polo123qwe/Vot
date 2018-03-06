@@ -10,3 +10,4 @@ config.json
 # Optional npm cache directory
 .npm
 .vscode
+.nyc_output

@@ -4,9 +4,10 @@
   "description": "A discord bot based on Discord.js framework",
   "main": "main.js",
   "scripts": {
-    "test": "mocha 'src/**/*.spec.js'",
     "start": "nodemon main.js",
-    "start-nodemon": "node node_modules/nodemon/bin/nodemon.js main.js"
+    "start-nodemon": "node node_modules/nodemon/bin/nodemon.js main.js",
+    "test": "mocha 'src/**/*.spec.js'",
+    "coverage": "nyc mocha 'src/**/*.spec.js'"
   },
   "author": "Sergi B",
   "license": "GNU",
