@@ -1,5 +1,6 @@
 const {expect} = require('chai');
-const {Message} = require('discord.js');
+
+const {DMChannel, Message} = require('discord.js');
 const logger = require('../utils/logger');
 
 const {ERRORS} = require('../utils/constants');
@@ -15,7 +16,7 @@ describe('Create a command with a command name', () => {
             alias: [],
             argTypes: [],
             category: 'General',
-            dmOnly: false,
+            dmDisabled: false,
             reqDB: false,
             minLevel: LEVELS.ALL,
             isTest: false
@@ -45,6 +46,15 @@ describe('Create a command with a command name', () => {
         expect(() => cmd.exec(messageObj, '')).to.throw(ERRORS.NOT_ARRAY);
     });
 
+    it('exec should throw an error if channel is a DM and command is disabled on DMs', () => {
+        let cmd = new Command();
+        cmd.dmDisabled = true;
+
+        let messageObj = new Message(new DMChannel);
+
+        expect(() => cmd.exec(messageObj, [])).to.throw(ERRORS.FORBIDDEN_CHANNEL);
+    });
+
     it('Should create a command with default values and isTest as true', () => {
         let cmd = new Command(null, null, true);
 
@@ -52,7 +62,7 @@ describe('Create a command with a command name', () => {
             alias: [],
             argTypes: [],
             category: 'General',
-            dmOnly: false,
+            dmDisabled: false,
             reqDB: false,
             minLevel: LEVELS.ALL,
             isTest: true

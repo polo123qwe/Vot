@@ -4,6 +4,7 @@ const logger = require('../utils/logger');
 const LEVELS = require('./Permission').LEVELS;
 const {ERRORS} = require('../utils/constants');
 const {checkTypes} = require('../parser/checkParser');
+const {isTextChannel} = require('../utils/discordUtils');
 
 class Command {
     // Set all the initial values for a command
@@ -12,7 +13,7 @@ class Command {
         this.category = category;
 
         this.reqDB = false;
-        this.dmOnly = false;
+        this.dmDisabled = false;
         this.alias = [];
 
         // Input checking
@@ -34,6 +35,9 @@ class Command {
         }
         if(!(args instanceof Array)) {
             throw new Error(ERRORS.NOT_ARRAY);
+        }
+        if(!isTextChannel(msg.channel) && this.dmDisabled){
+            throw new Error(ERRORS.FORBIDDEN_CHANNEL);
         }
 
         let result = checkTypes(args, this.argTypes);
