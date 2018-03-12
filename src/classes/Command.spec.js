@@ -1,10 +1,9 @@
 const {expect} = require('chai');
 
-const {DMChannel, Message} = require('discord.js');
+const {DMChannel, Message, Client, User} = require('discord.js');
 const logger = require('../utils/logger');
 
-const {ERRORS} = require('../utils/constants');
-const LEVELS = require('./Permission').LEVELS;
+const {ERRORS, LEVELS} = require('../utils/constants');
 const Command = require('./Command');
 
 
@@ -26,7 +25,11 @@ describe('Create a command with a command name', () => {
     it('Exec function should have 2 objects as parameters', () => {
         let cmd = new Command();
 
-        let messageObj = new Message();
+        let messageObj = new Message(null, null);
+
+        // Add a fake id to check id
+        messageObj.author = {};
+        messageObj.author.id = '0123456789';
 
         let result = cmd.exec(messageObj, []);
         expect(result).to.be.undefined;

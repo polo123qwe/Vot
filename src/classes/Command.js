@@ -1,10 +1,10 @@
 const {Message} = require('discord.js');
 const logger = require('../utils/logger');
 
-const LEVELS = require('./Permission').LEVELS;
-const {ERRORS} = require('../utils/constants');
+const {ERRORS, LEVELS} = require('../utils/constants');
 const {checkTypes} = require('../parser/checkParser');
 const {isTextChannel} = require('../utils/discordUtils');
+const {fetchUserPermission} = require('../auth/permissions');
 
 class Command {
     // Set all the initial values for a command
@@ -43,7 +43,16 @@ class Command {
         let result = checkTypes(args, this.argTypes);
 
         if(!result.length || result.length && result.every(b => b === true)){
-            this.run(msg, args);
+            fetchUserPermission(msg.author.id).then(level => {
+                if(this.minLevel >= level){
+                    this.run(msg, args);
+                } else {
+                    throw new Error(ERRORS.NOW_ALLOWED);
+                }
+                return;
+            }).catch(e => {
+                logger.error(e);
+            });
         } else {
             throw new Error(ERRORS.TYPE_MISSMATCH);
         }

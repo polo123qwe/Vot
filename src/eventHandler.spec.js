@@ -16,6 +16,10 @@ describe('messageHandler', () => {
         let messageObj = new Message();
         messageObj.content = prefix + 'test';
 
+        // Add a fake id to check id
+        messageObj.author = {};
+        messageObj.author.id = '0123456789';
+
         let result = messageHandler(messageObj);
 
         expect(result).to.be.null;

@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 
-const LEVELS = require('./classes/Permission').LEVELS;
+const {LEVELS} = require('./utils/constants');
 const {findCommand} = require('./commandAggregator');
 
 describe('findCommand', () => {
