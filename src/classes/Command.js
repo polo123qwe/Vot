@@ -47,11 +47,13 @@ class Command {
                 if(this.minLevel >= level){
                     this.run(msg, args);
                 } else {
-                    throw new Error(ERRORS.NOW_ALLOWED);
+                    // Call customError command
+                    logger.customError(ERRORS.NOT_ALLOWED, msg.channel);
                 }
                 return;
             }).catch(e => {
-                logger.error(e);
+                // Call customError command
+                logger.customError(e, msg.channel);
             });
         } else {
             throw new Error(ERRORS.TYPE_MISSMATCH);

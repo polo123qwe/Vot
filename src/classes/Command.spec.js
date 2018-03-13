@@ -1,6 +1,6 @@
 const {expect} = require('chai');
 
-const {DMChannel, Message, Client, User} = require('discord.js');
+const {DMChannel, Message} = require('discord.js');
 const logger = require('../utils/logger');
 
 const {ERRORS, LEVELS} = require('../utils/constants');
@@ -33,6 +33,21 @@ describe('Create a command with a command name', () => {
 
         let result = cmd.exec(messageObj, []);
         expect(result).to.be.undefined;
+    });
+
+    // TODO: Need a stub for this test
+    it('Exec function should throw error if there is not enough permission to execute', () => {
+        let cmd = new Command();
+
+        let messageObj = new Message(null, null);
+
+        // Add a null id
+        messageObj.author = {};
+        messageObj.author.id = null;
+
+        cmd.exec(messageObj, []);/*.catch(e => {
+            expect(e).to.be.equals(ERRORS.NOW_ALLOWED);
+        });*/
     });
 
     it('exec should throw an error if first parameter is not an object', () => {

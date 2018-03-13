@@ -9,7 +9,7 @@ exports.ERRORS = {
     NOT_ARRAY: 'args is not an array!',
     COMMAND_NOT_FOUND: 'Command not found!',
     FORBIDDEN_CHANNEL: 'You cannot execute this command in a DM!',
-    NOW_ALLOWED: 'You are not allowed to execute that'
+    NOT_ALLOWED: 'You are not allowed to execute that'
 };
 
 exports.CATEGORIES = {
