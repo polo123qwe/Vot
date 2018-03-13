@@ -1,4 +1,4 @@
-const logger = require('./utils/logger');
+// const logger = require('./utils/logger');
 
 const {ERRORS} = require('./utils/constants');
 const commandParser = require('./parser/commandParser');

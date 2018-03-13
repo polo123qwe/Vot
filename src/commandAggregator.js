@@ -1,7 +1,7 @@
 const directory = require('require-directory');
 
 const allCommands = directory(module, './commands/');
-const logger = require('./utils/logger');
+// const logger = require('./utils/logger');
 const Command = require('./classes/Command');
 
 

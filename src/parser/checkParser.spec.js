@@ -5,37 +5,25 @@ const {ARG_TYPES} = require('../utils/constants');
 
 describe('Check arg types', () => {
     it('Correctly detects a string', () => {
-        const args = ['a'];
-        const argTypes = [ARG_TYPES.STRING];
-
-        let result = checkTypes(args, argTypes);
+        let result = checkTypesWithArgs(['a'], [ARG_TYPES.STRING]);
 
         expect(result).to.have.same.members([true]);
     });
 
     it('Correctly detects a number', () => {
-        const args = ['5'];
-        const argTypes = [ARG_TYPES.NUMBER];
-
-        let result = checkTypes(args, argTypes);
+        let result = checkTypesWithArgs(['5'], [ARG_TYPES.NUMBER]);
 
         expect(result).to.have.same.members([true]);
     });
 
     it('Returns false when types do not match', () => {
-        const args = ['b'];
-        const argTypes = [ARG_TYPES.NUMBER];
-
-        let result = checkTypes(args, argTypes);
+        let result = checkTypesWithArgs(['b'], [ARG_TYPES.NUMBER]);
 
         expect(result).to.have.same.members([false]);
     });
 
     it('Numbers can be considered strings too', () => {
-        const args = [1];
-        const argTypes = [ARG_TYPES.STRING];
-
-        let result = checkTypes(args, argTypes);
+        let result = checkTypesWithArgs([1], [ARG_TYPES.STRING]);
 
         expect(result).to.have.same.members([true]);
     });
@@ -44,7 +32,7 @@ describe('Check arg types', () => {
         const args = ['b', '5', 'b'];
         const argTypes = [ARG_TYPES.STRING, ARG_TYPES.NUMBER, ARG_TYPES.NUMBER];
 
-        let result = checkTypes(args, argTypes);
+        let result = checkTypesWithArgs(args, argTypes);
 
         expect(result).to.have.same.members([true, true, false]);
     });
@@ -53,7 +41,7 @@ describe('Check arg types', () => {
         const args = ['b', '5', 'b', 'a'];
         const argTypes = [ARG_TYPES.STRING, ARG_TYPES.NUMBER, ARG_TYPES.NUMBER];
 
-        let result = checkTypes(args, argTypes);
+        let result = checkTypesWithArgs(args, argTypes);
 
         expect(result).to.have.same.members([true, true, false]);
     });
@@ -64,3 +52,7 @@ describe('Check arg types', () => {
         expect(result).to.have.same.members([]);
     });
 });
+
+function checkTypesWithArgs(args, argTypes) {
+    return checkTypes(args, argTypes);
+}

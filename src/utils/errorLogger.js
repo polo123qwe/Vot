@@ -1,4 +1,4 @@
-const logger = require('./logger');
+// const logger = require('./logger');
 
 module.exports = function logError(error, channel) {
     // TODO: Send a message to the channel

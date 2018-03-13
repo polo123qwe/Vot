@@ -1,7 +1,7 @@
 const {expect} = require('chai');
 
 const {DMChannel, Message} = require('discord.js');
-const logger = require('../utils/logger');
+// const logger = require('../utils/logger');
 
 const {ERRORS, LEVELS} = require('../utils/constants');
 const Command = require('./Command');
