@@ -1,77 +1,53 @@
 const expect = require('chai').expect;
 const {TextChannel, DMChannel, GroupDMChannel, Guild} = require('discord.js');
 
-const {isUser, isTextChannel} = require('./discordUtils');
+const {MACTHING_TYPES} = require('./constants');
+const {isUser, isExactUser, isTextChannel} = require('./discordUtils');
 
 
 describe('DiscordUtils', () => {
+    function makeIsUserTest(string, expectToBe, exact = false) {
+        return () => {
+            if(exact) {
+                expect(isExactUser(string, getFakeUser())).to.be.equal(expectToBe);
+            } else {
+                expect(isUser(string, getFakeUser())).to.be.equal(expectToBe);
+            }
+        };
+    }
+
     describe('isUser method', () => {
-        it('Returns true if matches username', () => {
-            let result = isUser('a username', getFakeUser());
+        
+        it('Returns USERNAME if matches username', makeIsUserTest('a username', MACTHING_TYPES.USERNAME));
 
-            expect(result).to.be.true;
-        });
+        it('Accepts partial matches for username', makeIsUserTest('a user', MACTHING_TYPES.USERNAME));
 
-        it('Accepts partial matches for username', () => {
-            let result = isUser('a user', getFakeUser());
+        it('Returns NICKNAME if the nickname matches', makeIsUserTest('a nickname', MACTHING_TYPES.NICKNAME));
+        
+        it('Accepts partial matches for nickname', makeIsUserTest('a nick', MACTHING_TYPES.NICKNAME));
+        
+        it('Returns ID if the id matches', makeIsUserTest('1234567890', MACTHING_TYPES.ID));
 
-            expect(result).to.be.true;
-        });
+        it('Returns USERNAME_AND_DISCRIMINATOR if it matches username+discriminator', makeIsUserTest('a username#1234', MACTHING_TYPES.USERNAME_AND_DISCRIMINATOR));
 
-        it('Accepts partial matches for nickname', () => {
-            let result = isUser('a nick', getFakeUser());
-
-            expect(result).to.be.true;
-        });
-
-        it('Returns true if the id matches', () => {
-            let result = isUser('1234567890', getFakeUser());
-
-            expect(result).to.be.true;
-        });
-
-        it('Returns true if the nickname matches', () => {
-            let result = isUser('a nickname', getFakeUser());
-
-            expect(result).to.be.true;
-        });
-
-        it('Returns true if it matches username+discriminator', () => {
-            let result = isUser('a username#1234', getFakeUser());
-
-            expect(result).to.be.true;
-        });
-
-        it('Strict returns true if it matches username+discriminator', () => {
-            let result = isUser('a username#1234', getFakeUser(), true);
-
-            expect(result).to.be.true;
-        });
-
-        it('Strict returns true if it matches username+discriminator', () => {
-            let result = isUser('a username#1234', getFakeUser(), true);
-
-            expect(result).to.be.true;
-        });
-
-        it('Strict returns true if it matches username', () => {
-            let result = isUser('a username', getFakeUser(), true);
-
-            expect(result).to.be.true;
-        });
-
-        it('Strict returns false if its a partial match for username', () => {
-            let result = isUser('a user', getFakeUser(), true);
-
-            expect(result).to.be.false;
-        });
-
-        it('Strict returns false if its a partial match for nickname', () => {
-            let result = isUser('a nick', getFakeUser(), true);
-
-            expect(result).to.be.false;
-        });
+        it('Returns NO_MATCH if it does not match anything', makeIsUserTest('abcd', MACTHING_TYPES.NO_MATCH));
     });
+
+    describe('isExactUser method', () => {
+
+        it('Returns ID if the id matches', makeIsUserTest('1234567890', MACTHING_TYPES.ID, true));
+
+        it('Returns USERNAME_AND_DISCRIMINATOR if it matches username+discriminator', makeIsUserTest('a username#1234', MACTHING_TYPES.USERNAME_AND_DISCRIMINATOR, true));
+        
+        it('Does not accept matching username', makeIsUserTest('a username', MACTHING_TYPES.NO_MATCH, true));
+
+        it('Does not accept partial matches for username', makeIsUserTest('a user', MACTHING_TYPES.NO_MATCH, true));
+
+        it('Does not accept nickname matches', makeIsUserTest('a nickname', MACTHING_TYPES.NO_MATCH, true));
+        
+        it('Does not accept partial matches for nickname', makeIsUserTest('a nick', MACTHING_TYPES.NO_MATCH, true));
+    });
+
     describe('isGuildChannel', () => {
         it('Should return false if param is null', () => {
             expect(isTextChannel()).to.be.false;

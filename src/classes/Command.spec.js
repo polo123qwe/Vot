@@ -1,10 +1,12 @@
 const {expect} = require('chai');
+var sinon = require('sinon');
 
 const {DMChannel, Message} = require('discord.js');
 // const logger = require('../utils/logger');
 
 const {ERRORS, LEVELS} = require('../utils/constants');
 const Command = require('./Command');
+const permissions = require('../auth/permissions');
 
 
 describe('Create a command with a command name', () => {
@@ -35,8 +37,10 @@ describe('Create a command with a command name', () => {
         expect(result).to.be.undefined;
     });
 
-    // TODO: Need a stub for this test
     it('Exec function should throw error if there is not enough permission to execute', () => {
+        let fetchUserPermissionStub = sinon.stub(permissions, 'fetchUserPermission');
+        fetchUserPermissionStub.rejects();
+        
         let cmd = new Command();
 
         let messageObj = new Message(null, null);
@@ -45,9 +49,7 @@ describe('Create a command with a command name', () => {
         messageObj.author = {};
         messageObj.author.id = null;
 
-        cmd.exec(messageObj, []);/*.catch(e => {
-            expect(e).to.be.equals(ERRORS.NOW_ALLOWED);
-        });*/
+        cmd.exec(messageObj, []);
     });
 
     it('exec should throw an error if first parameter is not an object', () => {

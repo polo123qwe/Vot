@@ -25,3 +25,11 @@ exports.LEVELS = {
     'ADMIN': 5,
     'SUPER': 9000
 };
+
+exports.MACTHING_TYPES = {
+    NICKNAME: 1,
+    USERNAME: 2,
+    USERNAME_AND_DISCRIMINATOR: 3,
+    ID: 5,
+    NO_MATCH: 10
+};
