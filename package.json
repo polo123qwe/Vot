@@ -8,7 +8,8 @@
     "start-nodemon": "node node_modules/nodemon/bin/nodemon.js main.js",
     "test": "mocha 'src/**/*.spec.js'",
     "test-win": "mocha src/**/*.spec.js",
-    "coverage": "nyc mocha 'src/**/*.spec.js'"
+    "coverage-lcov": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "coverage": "nyc npm test"
   },
   "author": "Sergi B",
   "license": "GNU",
