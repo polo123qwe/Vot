@@ -9,13 +9,15 @@ function arg_types_test(arg, type) {
 
 exports.checkTypes = function(args, argTypes){
     let matchesType = [];
-    if(args.hasOwnProperty('length') && argTypes.hasOwnProperty('length')){
-        for(let i = 0; i < args.length; i++){
-            if(argTypes[i] === undefined) {
-                return matchesType;
-            }
-            matchesType.push(arg_types_test(args[i], argTypes[i]));
+    if(!Array.isArray(args) || !Array.isArray(argTypes)){
+        return matchesType;
+    }
+
+    for(let i = 0; i < args.length; i++){
+        if(argTypes[i] === undefined) {
+            return matchesType;
         }
+        matchesType.push(arg_types_test(args[i], argTypes[i]));
     }
     return matchesType;
 };

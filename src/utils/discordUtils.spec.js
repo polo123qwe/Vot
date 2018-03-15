@@ -31,6 +31,8 @@ describe('DiscordUtils', () => {
         it('Returns USERNAME_AND_DISCRIMINATOR if it matches username+discriminator', makeIsUserTest('a username#1234', MACTHING_TYPES.USERNAME_AND_DISCRIMINATOR));
 
         it('Returns NO_MATCH if it does not match anything', makeIsUserTest('abcd', MACTHING_TYPES.NO_MATCH));
+
+        it('Uses default value parameter if its sent a null', makeIsUserTest(undefined, MACTHING_TYPES.USERNAME));
     });
 
     describe('isExactUser method', () => {

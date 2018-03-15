@@ -30,16 +30,7 @@ class Command {
 
     // Perform the checks and run the command if they pass
     exec(msg, args) {
-        if(!(msg instanceof Message)){
-            throw new Error(ERRORS.INCORRECT_MESSAGE_OBJECT);
-        }
-        if(!(args instanceof Array)) {
-            throw new Error(ERRORS.NOT_ARRAY);
-        }
-        if(!isTextChannel(msg.channel) && this.dmDisabled){
-            throw new Error(ERRORS.FORBIDDEN_CHANNEL);
-        }
-
+        this.checkExecParameters(msg, args);
         let result = checkTypes(args, this.argTypes);
 
         if(!result.length || result.length && result.every(b => b === true)){
@@ -59,7 +50,18 @@ class Command {
             throw new Error(ERRORS.TYPE_MISSMATCH);
         }
     }
-    
+
+    checkExecParameters(msg, args) {
+        if(!(msg instanceof Message)){
+            throw new Error(ERRORS.INCORRECT_MESSAGE_OBJECT);
+        }
+        if(!(args instanceof Array)) {
+            throw new Error(ERRORS.NOT_ARRAY);
+        }
+        if(!isTextChannel(msg.channel) && this.dmDisabled){
+            throw new Error(ERRORS.FORBIDDEN_CHANNEL);
+        }
+    }
 }
 
 module.exports = Command;

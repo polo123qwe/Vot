@@ -78,13 +78,7 @@ describe('Create a command with a command name', () => {
     it('Should create a command with default values and isTest as true', () => {
         let cmd = new Command(null, null, true);
 
-        expect(cmd).to.have.all.keys({
-            alias: [],
-            argTypes: [],
-            category: 'General',
-            dmDisabled: false,
-            reqDB: false,
-            minLevel: LEVELS.ALL,
+        expect(cmd).to.contain.keys({
             isTest: true
         });
     });

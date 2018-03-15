@@ -8,7 +8,7 @@ const {MACTHING_TYPES} = require('./constants');
  * nick and ID.
  * @returns {MACHING_TYPES value}
  */
-exports.isUser = function (value, user) {
+exports.isUser = function (value = '', user) {
 	value = value.toLowerCase();
 	let username = user.username.toLowerCase();
 	let nickname = user.nickname;
@@ -18,7 +18,7 @@ exports.isUser = function (value, user) {
 		return isExact;
 	}
 
-	if(username.includes(value) || !!value && value.includes(username)) return MACTHING_TYPES.USERNAME;
+	if(username.includes(value) || value.includes(username)) return MACTHING_TYPES.USERNAME;
 
 	if(nickname && nickname.toLowerCase().includes(value)) return MACTHING_TYPES.NICKNAME;
 
