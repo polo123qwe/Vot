@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-var sinon = require('sinon');
+const sinon = require('sinon');
 
 const {DMChannel, Message} = require('discord.js');
 // const logger = require('../utils/logger');
