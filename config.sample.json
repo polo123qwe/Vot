@@ -1,7 +1,11 @@
 {
     "prefix": "!",
     "database": {
-
+        "db": "",
+        "host": "",
+        "port": "",
+        "username": "",
+        "password": ""
     },
     "token": ""
 }

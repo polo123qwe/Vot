@@ -33,7 +33,10 @@ class Command {
         this.checkExecParameters(msg, args);
         let result = checkTypes(args, this.argTypes);
 
+        // If at least one of the parameters doesn't match the expected throw an error
         if(!result.length || result.length && result.every(b => b === true)){
+
+            // Retrieve the permissions of the user from the database
             fetchUserPermission(msg.author.id).then(level => {
                 if(this.minLevel >= level){
                     this.run(msg, args);

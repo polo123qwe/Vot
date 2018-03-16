@@ -1,6 +1,7 @@
 const {LEVELS} = require('../utils/constants');
 
 /*
+ * Retrieves the permission for a user from the DB
  * @param {string} userId - The user Id
  * @returns {Promise} The permission level of a given user
  */
