@@ -8,6 +8,7 @@ const logger = require('./src/utils/logger');
 
 const eventHandler = require('./src/eventHandler');
 
+let Connection = require('./src/db/dbConnection');
 const client = new Discord.Client({
     //fetchAllMembers: true,
     disableEveryone: true
@@ -24,7 +25,13 @@ client.on('message', (msg) => {
 });
 
 client.login(token).then(() => {
-    return logger.info('Logged in!');
+    logger.info('Logged in!');
+    Connection().then(() => {
+        return logger.info('Connected to the database');
+    }).catch((e) => {
+        logger.error('Database connection failed! ' + e);
+    });
+    return;
 }).catch(() => {
-    return logger.info('Could not log in! (Check if token is correct)');
+    logger.error('Could not log in! (Check if token is correct)');
 });

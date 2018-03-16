@@ -1,6 +1,8 @@
-const directory = require('require-directory');
+const requireDirectory = require('require-directory');
 
-const allCommands = directory(module, './commands/');
+const allCommands = requireDirectory(module, './commands/', {
+    exclude: /.spec.js/g
+});
 // const logger = require('./utils/logger');
 const Command = require('./classes/Command');
 
