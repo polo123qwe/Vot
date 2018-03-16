@@ -21,7 +21,7 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg) => {
-    eventHandler.messageHandler(msg);
+    eventHandler.messageHandler(msg, client);
 });
 
 client.login(token).then(() => {

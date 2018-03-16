@@ -5,7 +5,7 @@ const commandParser = require('./parser/commandParser');
 const { findCommand } = require('./commandAggregator');
 
 
-exports.messageHandler = function (msg) {
+exports.messageHandler = function (msg, client) {
     let parsed = commandParser(msg);
 
     if(parsed == null) {
@@ -15,7 +15,7 @@ exports.messageHandler = function (msg) {
     let command = findCommand(parsed.commandName);
     if(command){
         // logger.info('Command found!' + JSON.stringify(command, null, 2));
-        command.exec(msg, parsed.args);
+        command.exec(msg, parsed.args, client);
         return null;
     } else {
         throw new Error(ERRORS.COMMAND_NOT_FOUND);

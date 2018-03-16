@@ -23,13 +23,13 @@ class Command {
         this.isTest = isTest;
     }
 
-    run(/*msg, args*/) {
+    run(/*msg, args, client*/) {
         logger.error('Not implemented!');
         return;
     }
 
     // Perform the checks and run the command if they pass
-    exec(msg, args) {
+    exec(msg, args, client) {
         this.checkExecParameters(msg, args);
         let result = checkTypes(args, this.argTypes);
 
@@ -39,7 +39,7 @@ class Command {
             // Retrieve the permissions of the user from the database
             fetchUserPermission(msg.author.id).then(level => {
                 if(this.minLevel >= level){
-                    this.run(msg, args);
+                    this.run(msg, args, client);
                 } else {
                     // Call customError command
                     logger.customError(ERRORS.NOT_ALLOWED, msg.channel);

@@ -9,7 +9,8 @@
     "test": "mocha 'src/**/*.spec.js'",
     "test-win": "mocha src/**/*.spec.js",
     "coverage-lcov": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "coverage": "nyc npm test"
+    "coverage": "nyc npm test",
+    "coverage-win": "nyc npm run test-win"
   },
   "author": "Sergi B",
   "license": "GNU",
