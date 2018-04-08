@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const {Collection} = require('discord.js');
-const logger = require('../utils/logger');
+// const logger = require('../utils/logger');
 
 // const {ERRORS} = require('../utils/constants');
 const {guild} = require('./discordInfo');
