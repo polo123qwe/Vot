@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const {Message} = require('discord.js');
+const {Message, TextChannel} = require('discord.js');
 
 const {ERRORS} = require('../utils/constants');
 const {test} = require('./test');
@@ -19,10 +19,16 @@ describe('Testing commands', () => {
     describe('TestWithArgTypes command', () => {
         it('Should correctly check types', () => {
             let cmd = test;
-            const messageObj = new Message();
+            const messageObj = new Message(new TextChannel({id: '1234567'}));
+
+            messageObj.author = {
+                id: '01234567890'
+            };
 
             expect(cmd.isTest).to.be.true;
-            expect(() => cmd.exec(messageObj, ['a', 1])).to.not.throw(ERRORS.TYPE_MISSMATCH);
+            cmd.exec(messageObj, ['a', 1]).catch(e => {
+                expect(e).to.be.null;
+            });
         });
 
         it('Should throw error if types missmatch', () => {
@@ -30,7 +36,9 @@ describe('Testing commands', () => {
             const messageObj = new Message();
 
             expect(cmd.isTest).to.be.true;
-            expect(() => cmd.exec(messageObj, ['a', 'b'])).to.throw(ERRORS.TYPE_MISSMATCH);
+            cmd.exec(messageObj, ['a', 'b']).catch(e => {
+                expect(e).to.be.equals(ERRORS.TYPE_MISSMATCH);
+            });
         });
     });
 });

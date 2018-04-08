@@ -9,18 +9,20 @@ exports.ERRORS = {
     NOT_ARRAY: 'args is not an array!',
     COMMAND_NOT_FOUND: 'Command not found!',
     FORBIDDEN_CHANNEL: 'You cannot execute this command in a DM!',
-    NOT_ALLOWED: 'You are not allowed to execute that'
+    NOT_ALLOWED: 'You are not allowed to execute that',
+    ID_NOT_STRING: 'UserId and/or GuildId is not a string!'
 };
 
 exports.CATEGORIES = {
-    CORE: 'Core'
+    CORE: 'Core',
+    DISCORD_INFORMATION: 'Discord Information'
 };
 
 exports.LEVELS = {
     'DISABLED': -1,
     'ALL': 1,
     'MEMBERS': 2,
-    '': 3,
+    'HIGHER': 3,
     'MODERATOR': 4,
     'ADMIN': 5,
     'SUPER': 9000
@@ -32,4 +34,12 @@ exports.MACTHING_TYPES = {
     USERNAME_AND_DISCRIMINATOR: 3,
     ID: 5,
     NO_MATCH: 10
+};
+
+exports.GUILD_VERIFICATION_LEVELS = {
+    0: 'None',
+    1: 'Low',
+    2: 'Medium',
+    3: 'High',
+    4: 'Maximum'
 };

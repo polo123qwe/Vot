@@ -30,39 +30,55 @@ class Command {
 
     // Perform the checks and run the command if they pass
     exec(msg, args, client) {
-        this.checkExecParameters(msg, args);
-        let result = checkTypes(args, this.argTypes);
+        return new Promise((resolve, reject) => {
+            let error = this.checkExecParameters(msg, args);
+            if(error) {
+                return reject(error);
+            }
 
-        // If at least one of the parameters doesn't match the expected throw an error
-        if(!result.length || result.length && result.every(b => b === true)){
-
-            // Retrieve the permissions of the user from the database
-            fetchUserPermission(msg.author.id).then(level => {
-                if(this.minLevel >= level){
-                    this.run(msg, args, client);
-                } else {
+            let result = checkTypes(args, this.argTypes);
+    
+            // If at least one of the parameters doesn't match the expected throw an error
+            if(!result.length || result.length && result.every(b => b === true)){
+    
+                // Avoid trying to access the guild parameter if its a DM
+                let guildId = msg.guild == undefined ? 0 : msg.guild.id;
+    
+                // Retrieve the permissions of the user from the database
+                fetchUserPermission(msg.author.id, guildId).then(level => this.execThen(msg, args, client, level, resolve, reject)).catch(e => {
                     // Call customError command
-                    logger.customError(ERRORS.NOT_ALLOWED, msg.channel);
-                }
-                return;
-            }).catch(e => {
-                // Call customError command
-                logger.customError(e, msg.channel);
-            });
+                    logger.customError(e, msg.channel);
+                    return reject(e);
+                });
+            } else {
+                return reject(ERRORS.TYPE_MISSMATCH);
+            }
+        });
+    }
+
+    execThen(msg, args, client, level, resolve, reject) {
+        if(this.minLevel >= level){
+            this.run(msg, args, client);
+            return resolve();
         } else {
-            throw new Error(ERRORS.TYPE_MISSMATCH);
+            // Call customError command
+            logger.customError(ERRORS.NOT_ALLOWED, msg.channel);
+            return reject(ERRORS.NOT_ALLOWED);
         }
     }
 
+    /*
+     * Returns and error or null if there was no error
+     */
     checkExecParameters(msg, args) {
         if(!(msg instanceof Message)){
-            throw new Error(ERRORS.INCORRECT_MESSAGE_OBJECT);
+            return ERRORS.INCORRECT_MESSAGE_OBJECT;
         }
         if(!(args instanceof Array)) {
-            throw new Error(ERRORS.NOT_ARRAY);
+            return ERRORS.NOT_ARRAY;
         }
         if(!isTextChannel(msg.channel) && this.dmDisabled){
-            throw new Error(ERRORS.FORBIDDEN_CHANNEL);
+            return ERRORS.FORBIDDEN_CHANNEL;
         }
     }
 }

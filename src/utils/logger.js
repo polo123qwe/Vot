@@ -12,7 +12,7 @@ const colors = {
     prompt: 'grey',
     debug: 'blue',
     info: 'green',
-    warn: 'orange',
+    warn: 'yellow',
     error: 'red'
 };
 
@@ -34,7 +34,7 @@ const logger = createLogger({
       ]
 });
 
-logger.customError = function(e, channel) {
+logger.customError = function(e = '', channel) {
     this.error(e);
     errorLogger(e, channel);
 };

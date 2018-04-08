@@ -3,19 +3,30 @@ const sinon = require('sinon');
 
 const {ping} = require('./core');
 
+let sandbox;
+
 describe('Testing core', () => {
+
+    beforeEach(() => {
+        sandbox = sinon.sandbox.create();
+    });
+
     describe('Ping command', () => {
         it('Calls send command on the channel of the message', () => {
             let fakeMsg = {
                 channel: {
-                    send: () => 'Pong!'
+                    send: () => new Promise()
                 }
             };
-            let sendSpy = sinon.spy(fakeMsg.channel, 'send');
+
+            let channelStub = sandbox.stub(fakeMsg.channel, 'send').resolves();
 
             ping.run(fakeMsg, [], {ping: 1});
-            expect(sendSpy.calledOnce).to.be.true;
-            sendSpy.restore();
+            expect(channelStub.calledOnce).to.be.true;
         });
+    });
+
+    afterEach(() => {
+        sandbox.restore();
     });
 });

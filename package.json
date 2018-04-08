@@ -29,5 +29,11 @@
     "chai": "^4.1.2",
     "mocha": "^5.0.1"
   },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js",
+      "build"
+    ]
+  },
   "repository": "https://github.com/polo123qwe/Vot"
 }

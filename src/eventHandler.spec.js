@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 
 const prefix = require('../config.json').prefix;
 const {ERRORS} = require('./utils/constants');
-const {Message} = require('discord.js');
+const {Message, Channel} = require('discord.js');
 const {messageHandler} = require('./eventHandler');
 
 describe('messageHandler', () => {
@@ -13,12 +13,13 @@ describe('messageHandler', () => {
     });
 
     it('finds and runs the test command', () => {
-        let messageObj = new Message();
+        let messageObj = new Message(new Channel());
         messageObj.content = prefix + 'test';
 
         // Add a fake id to check id
-        messageObj.author = {};
-        messageObj.author.id = '0123456789';
+        messageObj.author = {
+            id: '0123456789'
+        };
 
         let result = messageHandler(messageObj);
 

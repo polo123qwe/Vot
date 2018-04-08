@@ -3,7 +3,7 @@
 const {ARG_TYPES} = require('../utils/constants');
 const Command = require('../classes/Command');
 
-let test = new Command(null, null, true);
+let test = new Command(undefined, undefined, true);
 test.run = function() {
     // logger.info('Member: ' + msg.hasOwnProperty('member') + ' User' + msg.hasOwnProperty('user'));
 };
