@@ -20,7 +20,9 @@ describe('Create a command with a command name', () => {
             dmDisabled: false,
             reqDB: false,
             minLevel: LEVELS.ALL,
-            isTest: false
+            isTest: false,
+            help: '',
+            cd: -1
         });
     });
 

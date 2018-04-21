@@ -4,6 +4,10 @@ exports.ARG_TYPES = {
 };
 
 exports.ERRORS = {
+    RICH: {
+        COMMAND_COOLDOWN: (cmdName, time) => 
+        `The command ${cmdName} is on cooldown for ${time} seconds!`
+    },
     TYPE_MISSMATCH: 'Types do not match!',
     INCORRECT_MESSAGE_OBJECT: 'Incorrect message object!',
     NOT_ARRAY: 'args is not an array!',
@@ -12,6 +16,7 @@ exports.ERRORS = {
     NOT_ALLOWED: 'You are not allowed to execute that',
     ID_NOT_STRING: 'UserId and/or GuildId is not a string!'
 };
+
 
 exports.CATEGORIES = {
     CORE: 'Core',

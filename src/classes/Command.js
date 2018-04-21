@@ -21,6 +21,8 @@ class Command {
 
         // If the command is created for testing purposes, mark it as such
         this.isTest = isTest;
+        this.help = 'No help provided for this command!';
+        this.cd = -1;
     }
 
     run(/*msg, args, client*/) {

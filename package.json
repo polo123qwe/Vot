@@ -10,7 +10,8 @@
     "test-win": "mocha src/**/*.spec.js",
     "coverage-lcov": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "coverage": "nyc npm test",
-    "coverage-win": "nyc npm run test-win"
+    "coverage-win": "nyc npm run test-win",
+    "lint": "node ./node_modules/eslint/bin/eslint.js 'src/**' --fix"
   },
   "author": "Sergi B",
   "license": "GNU",

@@ -7,6 +7,7 @@ const {stringifyTimestamp} = require('../utils/utils');
 
 let guild = new Command(CATEGORIES.DISCORD_INFORMATION);
 guild.dmDisabled = true;
+guild.help = 'Prints various information related to the guild';
 guild.run = function(msg) {
     let embed = new RichEmbed();
     let guild = msg.guild;
@@ -28,5 +29,7 @@ guild.run = function(msg) {
         logger.warn(e);
     });
 };
+guild.alias.push('server', 'g');
+
 
 exports.guild = guild;
