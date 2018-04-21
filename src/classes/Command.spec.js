@@ -83,6 +83,26 @@ describe('Create a command with a command name', () => {
         });
     });
 
+    it('exec should throw an error if command on cooldown', () => {
+        let cmd = new Command();
+        cmd.name = 'Meh';
+        cmd.cd = .5;
+
+        let messageObj = new Message(new TextChannel({id: '1234567'}));
+        messageObj.author = {
+            id: '123456789'
+        };
+
+        cmd.exec(messageObj, []).then(() => {
+            cmd.exec(messageObj, []).catch(e => {
+                expect(e).to.be.equals(ERRORS.RICH.COMMAND_COOLDOWN(cmd.name, cmd.cd));
+            });
+            return;
+        }).catch(e => {
+            expect(e).to.be.null;
+        });
+    });
+
     it('exec should throw an error if channel is a DM and command is disabled on DMs', () => {
         let cmd = new Command();
         cmd.dmDisabled = true;
@@ -109,4 +129,5 @@ describe('Create a command with a command name', () => {
             expect(e).to.be.equals(ERRORS.NOT_ALLOWED);
         });
     });
+
 });

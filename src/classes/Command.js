@@ -5,6 +5,7 @@ const {ERRORS, LEVELS} = require('../utils/constants');
 const {checkTypes} = require('../parser/checkParser');
 const {isTextChannel} = require('../utils/discordUtils');
 const {fetchUserPermission} = require('../auth/permissions');
+const {cooldown} = require('../auth/cooldown');
 
 class Command {
     // Set all the initial values for a command
@@ -46,6 +47,12 @@ class Command {
                 // Avoid trying to access the guild parameter if its a DM
                 let guildId = msg.guild == undefined ? 0 : msg.guild.id;
     
+                // Check the cooldown of the command
+                let error = cooldown(msg.author.id, guildId, this);
+                if(error) {
+                    return reject(error);
+                }
+
                 // Retrieve the permissions of the user from the database
                 fetchUserPermission(msg.author.id, guildId).then(level => this.execThen(msg, args, client, level, resolve, reject)).catch(e => {
                     // Call customError command
@@ -60,6 +67,7 @@ class Command {
 
     execThen(msg, args, client, level, resolve, reject) {
         if(this.minLevel >= level){
+
             this.run(msg, args, client);
             return resolve();
         } else {
